@@ -25,6 +25,11 @@ def uuid_or_none(val):
     return val
 
 
+def dump_uuid(val):
+    """Convert UUID to string."""
+    return str(val) if isinstance(val, uuid.UUID) else None
+
+
 class VersionsManager:
     """Versions state manager."""
 
@@ -137,9 +142,9 @@ class VersionsManager:
     def dump(self):
         """Dump the versions state to the index."""
         return dict(
-            latest_id=self.latest_id,
+            latest_id=dump_uuid(self.latest_id),
             latest_index=self.latest_index,
-            next_draft_id=self.next_draft_id,
+            next_draft_id=dump_uuid(self.next_draft_id),
             is_latest=self.is_latest,
             is_latest_draft=self.is_latest_draft,
             index=self.index,
